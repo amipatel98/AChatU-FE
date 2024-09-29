@@ -1,0 +1,93 @@
+<div class="admin_layout" xmlns="http://www.w3.org/1999/html">
+    <app-header></app-header>
+    <div class="body">
+        <mat-tab-group (selectedTabChange)="getAllUserList()">
+            <mat-tab label="Search message" >
+                <div class="inner_body">
+                    <div class="search">
+                <mat-form-field appearance="outline" class="input_box">
+                    <mat-label>Search Message</mat-label>
+                    <input matInput #searchMessages>
+                </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="searchMessage(searchMessages.value)">Search</button>
+                    </div>
+                    <div class="delete_div">
+                        <button mat-raised-button color="warn" (click)="deleteMessages()">Delete nuisance message from all users</button>
+                    </div>
+                </div>
+
+                <mat-card class="single_card_header">
+
+                    <div class="section1">
+                        <label class="user_name">Sender</label>
+                        <label class="user_name">Receiver</label>
+                        <label class="user_massage">User message</label>
+                    </div>
+                    <div class="section2">
+                        <label class="user_name">Date Time</label>
+                    </div>
+                </mat-card>
+                <div class="data_scroller">
+                    <mat-card class="single_card" *ngFor="let search of searchResult">
+                        <div class="section1">
+                            <label *ngIf="search?.postedByUser" class="user_name">{{search?.postedByUser?.firstName + ' ' +search?.postedByUser?.lastName}} </label>
+                            <label  *ngIf="search?.forwardByUser" class="user_name"> {{ search?.forwardByUser?.firstName + ' ' +search?.forwardByUser?.lastName}}</label>
+
+                            <label *ngIf="search?.forwardToUserObject" class="user_name">{{search?.forwardToUserObject?.firstName + ' ' + search?.forwardToUserObject?.lastName}}</label>
+                            <label *ngIf="search?.postedByUser" class="user_name">{{receiver[0]?.firstName + ' ' + receiver[0]?.lastName}}</label>
+
+                            <div class="forward_massage user_massage">
+                            <div *ngIf="search?.forwardByUser">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M14.278 4.813c0-.723.873-1.085 1.383-.574l6.045 6.051a.81.81 0 0 1 0 1.146l-6.045 6.051a.81.81 0 0 1-1.383-.574v-2.732c-5.096 0-8.829 1.455-11.604 4.611-.246.279-.702.042-.602-.316 1.43-5.173 4.925-10.004 12.206-11.045V4.813z"></path></svg>
+                            </div>
+                            <label class="">{{search?.message?.messageText ? search?.message?.messageText : search?.message}}</label>
+                            </div>
+                        </div>
+                        <div class="section2">
+                        <label>{{search?.updatedAt | date :'short'}}</label>
+                        </div>
+                    </mat-card>
+
+                </div>
+                <div class="no_data" *ngIf="!searchResult?.length">
+                    <div class="no_data_image">
+                        <img src="../../../../../assets/image/notfound.png">
+                    </div>
+                </div>
+
+            </mat-tab>
+            <mat-tab label="Search userlist">
+                <div class="inner_body">
+                    <div class="search">
+                        <mat-form-field appearance="outline" class="input_box">
+                            <mat-label>Search User</mat-label>
+                            <input matInput #list (input)="searchUserList(list.value)">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <mat-card class="single_card_header mt_24">
+
+                    <div class="section1">
+                        <label class="user_name">User Name</label>
+                    </div>
+                    <div class="section2">
+                        <label>Action</label>
+                    </div>
+                </mat-card>
+                <div class="data_scroller1">
+                    <mat-card class="single_card" *ngFor="let user of tempUserList">
+                        <div class="section1">
+                            <label class="user_name">{{user?.firstName + ' '+ user?.lastName}}</label>
+                        </div>
+                        <div class="section2">
+                            <mat-slide-toggle color="primary" (change)="activeUser($event, user)" [checked]="user?.isActive">{{user?.isActive ? "Active" : "Block"}}</mat-slide-toggle>
+                        </div>
+                    </mat-card>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+
+    </div>
+</div>

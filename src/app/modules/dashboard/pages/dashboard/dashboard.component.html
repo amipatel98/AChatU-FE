@@ -1,0 +1,224 @@
+<div class="layout">
+    <div class="chat_left">
+        <div class="chat_left_header">
+            <div class="profile_img">
+                <img src="../../../../../assets/image/user2.png">
+            </div>
+            {{userName}}
+            <span class="flex_space"></span>
+            <button mat-button [matMenuTriggerFor]="menu">
+                <span class="material-icons">
+                    more_vert
+                    </span>
+            </button>
+            <mat-menu #menu="matMenu" class="logout_but">
+                <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu>
+        </div>
+        <div class="chat_find">
+            <form [formGroup]="dashboardForm" class="example-form w_100">
+                <mat-form-field class="example-full-width w_100">
+                    <input matInput #list placeholder="Search" (input)="search(list.value)">
+                </mat-form-field>
+            </form>
+
+        </div>
+        <div class="chat_list_scroller" >
+            <div *ngFor="let list of tempChatList; let i = index;">
+            <div style="cursor: pointer" class="chat_list " [ngClass]="{'activeAshish' : chatId === activeUser[i] }"  (click)="particularChat(list, i)">
+                <div class="profile_img" (click)="initiateRoom(i)">
+                    <img src="../../../../../assets/image/user1.png">
+                </div>
+                <span (click)="initiateRoom(i)" >{{list}}</span>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat_right main_div" *ngIf="!currentUser">
+        <div class="main_image">
+            <img  src="../../../../../assets/image/chat.png">
+        </div>
+    </div>
+    <div class="chat_right" *ngIf="currentUser">
+
+        <div class="chat_right_header" >
+            <div class="profile_img">
+                <img src="../../../../../assets/image/user1.png">
+            </div>
+            <span>{{currentUser}}</span>
+        </div>
+        <div class="demo_div">
+        <div class="chat_right_body" #scrollMe [scrollTop]="scrollMe?.scrollHeight">
+            <div [ngClass]="{'send1' : msg?.userId === this.decodedToken?.userId,
+                'received0' : msg?.userId !== this.decodedToken?.userId}" *ngFor="let msg of displayConversationMsg; let i = index;">
+                <div class="dates_massage">
+                    <label *ngIf="msg?.createdDate === currentDate && msg?.createdDate !== displayConversationMsg[i - 1]?.createdDate && i !==0">Today</label>
+                    <label *ngIf="msg?.createdDate === currentDate && msg?.createdDate !== displayConversationMsg[i - 1]?.createdDate && i ===0">Today</label>
+                    <label *ngIf="msg?.createdDate !== currentDate && msg?.createdDate !== displayConversationMsg[i - 1]?.createdDate && i ===0">{{msg?.createdDate}}</label>
+                    <label *ngIf="msg?.createdDate !== currentDate && msg?.createdDate !== displayConversationMsg[i - 1]?.createdDate && i !==0">{{msg?.createdDate}}</label>
+                </div>
+                <div [ngClass]= "{'send' : msg?.userId === this.decodedToken?.userId,
+                'received' : msg?.userId !== this.decodedToken?.userId}">
+                <div>
+                    <input class="mr_10" type="checkbox" *ngIf="forwardMessageSend" id="checkboxId" [checked]="msg.checked" (click)="forwardList($event, msg)">
+                </div>
+                    <span *ngIf="msg?.forwarded">
+                        <label class="text">
+                            <div class="section1">
+                                <span class="for_text">
+                                    <div class="for_svg_section1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M14.278 4.813c0-.723.873-1.085 1.383-.574l6.045 6.051a.81.81 0 0 1 0 1.146l-6.045 6.051a.81.81 0 0 1-1.383-.574v-2.732c-5.096 0-8.829 1.455-11.604 4.611-.246.279-.702.042-.602-.316 1.43-5.173 4.925-10.004 12.206-11.045V4.813z"></path></svg>
+                                    </div> forwarded
+                                </span>
+                                    <div class="section2">
+                                        <div [ngClass]="{'new_massage': !msg?.emojiInclude, 'new_massage_emoji': msg?.emojiInclude }" *ngIf="msg?.message"> {{msg?.message}} </div>
+                                        <div [ngClass]="{'new_massage': !msg?.emojiInclude, 'new_massage_emoji': msg?.emojiInclude }">
+                                             <div *ngFor="let image of msg?.image">
+                                                <img height="120px" width="120px" style="margin-right: 20px" *ngIf="image?.photo" src="{{'http://localhost:3000/' + image?.imagePath}}">
+                                                 <video height="150px" width="200px" controls *ngIf="image?.video" style="margin-right: 20px" controls>
+                                                    <source src="{{'http://localhost:3000/' + image?.imagePath}}" type="video/webm">
+                                                </video>
+                                            </div>
+                                        </div>
+                                        <div class="massage_date">{{msg?.createdAt}}</div>
+                                        <span class="material-icons icon" [matMenuTriggerFor]="menu1">
+                                            keyboard_arrow_down
+                                        </span>
+                                    </div>
+                                    <mat-menu #menu1="matMenu">
+                                        <button mat-menu-item (click)="replyMessage(msg)">Reply</button>
+                                        <button mat-menu-item (click)="forwardMessage(msg)">Forward message</button>
+                                        <button mat-menu-item *ngIf="msg?.userId === this.decodedToken?.userId" (click)="deleteMessage(msg)">Delete message</button>
+                                    </mat-menu>
+                            </div>
+                        </label>
+                    </span>
+                    <span *ngIf="!msg?.forwarded">
+                        <label class="text">
+                        <div *ngIf="!msg?.replyText">
+                             <div [ngClass]="{'new_massage': !msg?.emojiInclude, 'new_massage_emoji': msg?.emojiInclude }" *ngIf="msg?.image">
+                                 <div *ngFor="let image of msg?.image">
+                                     <img height="120px" width="120px" style="margin-right: 20px" *ngIf="image?.photo" src="{{'http://localhost:3000/' + image?.imagePath}}">
+                                     <video height="120px" width="200px" controls *ngIf="image?.video" style="margin-right: 20px" controls>
+                                        <source src="{{'http://localhost:3000/' + image?.imagePath}}" type="video/webm">
+                                    </video>
+                                 </div>
+                             </div>
+                            <div [ngClass]="{'new_massage': !msg?.emojiInclude, 'new_massage_emoji': msg?.emojiInclude }" *ngIf="msg?.message"> {{msg?.message}} </div>
+                        </div>
+                        <div class="reply_massage" *ngIf="msg && msg.replyText">
+                            <span class="reply_massage_inner" >
+                                <span class="user_name" *ngIf="msg?.userId !== decodedToken?.userId"> {{chatWithUser}} </span>
+                                <span class="user_name" *ngIf="msg?.userId === decodedToken?.userId"> You </span>
+                                {{msg?.replyText}}
+                            </span>
+                            <div [ngClass]="{'new_massage': !msg?.emojiInclude, 'new_massage_emoji': msg?.emojiInclude }" *ngIf="msg?.message">
+                                <span disabled="true">{{msg?.message}}</span>
+                            </div>
+                            <div [ngClass]="{'new_massage': !msg?.emojiInclude, 'new_massage_emoji': msg?.emojiInclude }">
+                                <div *ngFor="let image of msg?.image">
+                                    <img height="120px" width="120px" style="margin-right: 20px" *ngIf="image?.photo" src="{{'http://localhost:3000/' + image?.imagePath}}">
+                                    <video height="120px" width="200px" controls *ngIf="image?.video" style="margin-right: 20px" controls>
+                                        <source src="{{'http://localhost:3000/' + image?.imagePath}}" type="video/webm">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex_space"></div>
+                        <div class="massage_date">{{msg?.createdAt}}</div>
+                        <span class="material-icons icon" [matMenuTriggerFor]="menu1" *ngIf="msg?.image && !msg?.image.length">
+                        keyboard_arrow_down
+                     </span>
+                        <mat-menu #menu1="matMenu">
+                        <button mat-menu-item (click)="replyMessage(msg)">Reply</button>
+                        <button mat-menu-item (click)="forwardMessage(msg)">Forward message</button>
+                        <button mat-menu-item *ngIf="msg?.userId === this.decodedToken?.userId" (click)="deleteMessage(msg)">Delete message</button>
+                    </mat-menu>
+                        </label>
+                    </span>
+                </div>
+            </div>
+        </div>
+        </div>
+        <form [formGroup]="sendMessageForm" *ngIf="!forwardMessageSend && currentUser">
+        <div class="chat_right_footer">
+            <input multiple style="display: none" type="file" #file (change)="upload($event)" formControlName="attachment">
+            <div class="send_image" *ngIf="imgData && !replyTextMessage">
+                <div class="single_image" *ngFor="let image of imgData; let i = index;">
+                    <img [src]="image.url" height="200" *ngIf="image.format==='image'">
+                    <video [src]="image.url" height="70px" width="70px" *ngIf="image.format==='video'" controls></video> <br/>
+                    <div class="img_layout">
+                        <span class="material-icons delete_icon" (click)="removeImage(i, image)">
+                            close
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom_footer">
+
+                <div class="profile_img">
+                <emoji-mart class="emoji-mart" set="{{set}}" [style]="{ position: 'absolute', bottom: '100px', right: '900px' }" *ngIf="showEmojiPicker" [emojiSize]="48" (emojiSelect)="addEmoji($event)" title="Pick your emoji…"></emoji-mart>
+                <button type="button" class="emoji_but" (click) ="toggleEmojiPicker()">
+                    <span class="material-icons icon_emoji">
+                        insert_emoticon
+                    </span>
+                </button>
+                </div>
+                <div class="profile_img">
+                <span (click)="file.click()" class="material-icons attachment_file">
+                    attach_file
+                </span>
+                </div>
+            <div class="w_70 chet_text">
+                <div *ngIf="replyTextMessage">
+                    <div class="for_footer1">
+                        <div class="left_for_footer">
+                            <label>{{showReplyMessage}}</label>
+<!--                            <img height="70px" width="70px" style="margin-right: 20px" *ngIf="replyImagePath" src="{{'http://localhost:3000/' + replyImagePath}}">-->
+                        </div>
+                        <div class="right_for_footer">
+                            <div class="">
+                                <span class="material-icons" (click)="close()">close</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <mat-form-field appearance="outline" class="w_100">
+                    <input matInput placeholder="Send message" formControlName="messageText">
+                </mat-form-field>
+            </div>
+
+
+            <div class="profile_img">
+                <button type="submit" mat-button (click)="sendMessage()"><span class="material-icons">send</span></button>
+            </div>
+            </div>
+        </div>
+        </form>
+        <div class="chat_right_footer" *ngIf="forwardMessageSend">
+            <div class="for_footer">
+            <div class="left_for_footer">
+            <div class="profile_img">
+                <span class="material-icons" (click)="close()">
+                   close
+                </span>
+            </div>
+
+            <label *ngIf="forwardMessageList">{{forwardMessageList.length}} message selected</label>
+            </div>
+            <div class="right_for_footer">
+            <div class="profile_img">
+                <span class="material-icons mr_20">
+                    delete
+                </span>
+                <div class="ml-3 for_svg" (click)="openForwardPopup()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M14.278 4.813c0-.723.873-1.085 1.383-.574l6.045 6.051a.81.81 0 0 1 0 1.146l-6.045 6.051a.81.81 0 0 1-1.383-.574v-2.732c-5.096 0-8.829 1.455-11.604 4.611-.246.279-.702.042-.602-.316 1.43-5.173 4.925-10.004 12.206-11.045V4.813z"></path></svg>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

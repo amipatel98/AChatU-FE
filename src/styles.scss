@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~ngx-toastr/toastr';
+@import '~@ctrl/ngx-emoji-mart/picker';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.chet_text .mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+
+.chet_text .mat-form-field-infix {
+  border-top: 0;
+}
+
+
+
+ .mat-menu-panel {
+   min-width: 75px !important;
+   min-height: 38px !important;
+}
+.logout_but .mat-menu-item {
+  height: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error_text {
+  font-size: 12px;
+  margin-top: -10px;
+}
+
+.userlist .mat-dialog-container {
+  padding: 0px;
+}

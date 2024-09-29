@@ -1,0 +1,22 @@
+<div class="layout">
+    <div class="header">
+        <label class="text"> Forward Message to</label>
+        <mat-icon (click)="close()" [mat-dialog-close]="true">close</mat-icon>
+    </div>
+    <div class="search">
+        <input class="search_input" type="text" placeholder="search" #list (input)="search(list.value)">
+    </div>
+    <div class="body">
+        <div class="user_list" *ngFor="let user of tempUserList">
+            <input class="mr_10 check_box" type="checkbox" id="{{'checkboxId' + user?._id}}" (click)="forwardMessageToUser($event, user)">
+            <div class="profile_pic">
+                <img src="../../../../../assets/image/user1.png">
+            </div>
+            <label style="font-size: 16px; cursor: pointer" for="{{'checkboxId' + user?._id}}"> {{user?.firstName + ' ' + user?.lastName}}</label>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button mat-button (click)="sendMessage()" [mat-dialog-close]="true"><span class="material-icons">send</span></button>
+    </div>
+</div>

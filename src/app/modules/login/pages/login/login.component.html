@@ -1,0 +1,42 @@
+<div class="layout">
+
+    <mat-card class="login_card">
+        <img src="../../../../../assets/image/chat-ico2.png">
+
+        <div class="w_100">
+            <h2>Login</h2>
+        </div>
+        <form name="form" [formGroup]="loginForm" class="example-form input_field w_100">
+            <mat-form-field class="example-full-width w_100">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+            <div *ngIf="submitted && f.email?.errors" class="invalidDiv">
+                <mat-error class="error_text" *ngIf="f.email?.errors.required">
+                    Email is required
+                </mat-error>
+                <mat-error class="error_text" *ngIf="!f.email?.errors.required && f.email?.invalid">
+                    Email is not valid
+                </mat-error>
+            </div>
+            <mat-form-field class="example-full-width w_100">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput placeholder="Password" formControlName="password">
+            </mat-form-field>
+            <div *ngIf="submitted && f.password?.errors" class="invalidDiv">
+                <mat-error class="error_text" *ngIf="f.password?.errors.required">
+                    Password is required
+                </mat-error>
+                <mat-error class="error_text" *ngIf="!f.password?.errors.required && f.password?.invalid">
+                    Password is not valid
+                </mat-error>
+            </div>
+            <div class="regi">
+                <span> No account?</span> <a (click)="registration()">Registration</a>
+            </div>
+        </form>
+        <div class="login_but w_100">
+            <button mat-raised-button color="primary" (click)="logIn()">Log In</button>
+        </div>
+    </mat-card>
+</div>

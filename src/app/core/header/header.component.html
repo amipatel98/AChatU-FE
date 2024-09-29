@@ -1,0 +1,25 @@
+<div class="chat_left_header">
+    <div class="profile_img">
+        <img src="../../../../../assets/image/chat-ico2.png" routerLink="/admin-dashboard">
+    </div>
+
+    <span class="flex_space"></span>
+    <div class="all_links">
+        <mat-label class="header_link" (click)="home()">Home
+            <span class="material-icons icon_inner">
+            home
+            </span>
+        </mat-label>
+        <mat-label class="header_link" (click)="signUp()">SignUp
+            <span class="material-icons icon_inner">
+                person_add_alt_1
+            </span>
+        </mat-label>
+        <mat-label class="header_link">Admin</mat-label>
+        <button class="logout_but header_link" mat-button (click)="logout()">
+            <mat-label class="header_link"> Logout <span class="material-icons icon_inner">power_settings_new</span></mat-label>
+
+        </button>
+    </div>
+</div>
+

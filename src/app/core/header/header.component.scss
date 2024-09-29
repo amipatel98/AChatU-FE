@@ -1,0 +1,41 @@
+.chat_left_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #0000001f;
+  margin: 0 -60px 10px;
+  padding: 0 60px;
+  background-color: #847c7c40;
+  .profile_img {
+    width: 160px;
+    height: 100px;
+    display: block;
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      outline: unset;
+      cursor: pointer;
+    }
+  }
+}
+.all_links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .header_link {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 10px;
+    padding: 0px;
+    cursor: pointer;
+    outline: unset;
+    display: flex;
+    align-items: center;
+    .icon_inner {
+      margin-left: 5px;
+    }
+  }
+}
+

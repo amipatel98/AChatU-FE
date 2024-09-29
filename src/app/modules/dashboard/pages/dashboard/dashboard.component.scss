@@ -1,0 +1,521 @@
+.layout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+  .chat_left {
+    flex: 30%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-right: 1px solid #1312123b;
+    .chat_left_header {
+      padding: 10px 16px;
+      background-color: #ededed;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      .profile_img {
+        width: 50px;
+        height: 40px;
+        display: block;
+        border-radius: 50%;
+        margin-right: 10px;
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          border-radius: 50%;
+        }
+      }
+
+    }
+    .chat_find {
+      padding: 10px 16px;
+    }
+    .chat_list_active {
+      background-color: #efefef;
+    }
+    .chat_list_scroller {
+      max-height: calc(100vh - 15vh);
+      overflow: auto;
+      .chat_list {
+        padding: 10px 16px;
+        // background-color: #fff;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        .profile_img {
+          width: 40px;
+          height: 40px;
+          display: block;
+          border-radius: 50%;
+          margin-right: 20px;
+          img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 50%;
+          }
+        }
+        span {
+          font-size: 16px;
+          font-weight: 400;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 240px;
+          display: block;
+
+        }
+        &:hover {
+          background-color: #efefef;
+        }
+      }
+    }
+
+  }
+  .chat_right {
+    width: 100%;
+    .chat_right_header {
+      padding: 10px 16px;
+      background-color: #ededed;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      .profile_img {
+        width: 40px;
+        height: 40px;
+        display: block;
+        border-radius: 50%;
+        margin-right: 20px;
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          border-radius: 50%;
+        }
+      }
+      span {
+        font-size: 16px;
+        font-weight: 400;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 240px;
+        display: block;
+      }
+    }
+
+.demo_div {
+display: flex;
+  flex-direction: column-reverse;
+
+  .chat_right_body {
+    height: calc(100vh - 165px);
+    overflow: auto;
+    margin-bottom: 66px;
+    display: flex;
+    flex-direction: column;
+    //justify-content: flex-end;
+    //align-items: flex-end;
+    margin: 0 25px;
+    padding-right: 10px;
+
+    .send1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+      width: 100%;
+      margin-bottom: 5px;
+
+      .send {
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        span {
+          padding: 6px 7px 8px 9px;
+          background-color: #dcf8c6;
+          border-radius: 5px;
+
+          .text {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            position: relative;
+            min-width: 125px;
+            max-width: 800px;
+            width: 100%;
+
+            .icon {
+              display: none;
+              background-color: transparent;
+              position: absolute;
+              top: -8px;
+              right: -10px;
+            }
+
+            .massage_date {
+              font-size: 10px;
+              margin: 10px 0px 0px 10px;
+              color: #aaaaaa;
+              display: block;
+              height: 20px;
+              bottom: 0;
+              position: absolute;
+              right: 0;
+
+            }
+
+            &:hover .icon {
+              display: block;
+              height: 20px;
+              background-color: transparent;
+            }
+          }
+        }
+
+
+      }
+
+    }
+
+    .received0 {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      width: 100%;
+      margin-bottom: 5px;
+
+      .received {
+
+        max-width: 80%;
+        display: flex;
+        align-items: center;
+
+        span {
+          padding: 6px 7px 8px 9px;
+          background-color: #f0f0f0;
+          border-radius: 5px;
+
+          .text {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            position: relative;
+            min-width: 125px;
+            width: 100%;
+
+            .massage_date {
+              font-size: 10px;
+              margin: 10px 0px 0px 10px;
+              color: #aaaaaa;
+              //width: 90px;
+              display: flex;
+              align-items: flex-end;
+              justify-content: flex-end;
+            }
+
+            .icon {
+              display: none;
+              background-color: transparent;
+              height: 20px;
+              position: absolute;
+              top: -8px;
+              right: -10px;
+            }
+
+            &:hover .icon {
+              display: block;
+              height: 20px;
+            }
+          }
+        }
+
+
+      }
+
+    }
+
+  }
+}
+.check_row {
+  display: flex;
+  align-items: center;
+}
+
+    .chat_right_footer {
+      position: fixed;
+      bottom: 0;
+      padding: 20px 16px;
+      background-color: #ededed;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 100%;
+      .bottom_footer {
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+      .profile_img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.dates_massage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  label {
+    padding: 5px;
+    background-color: #e1f3fb;
+    border-radius: 3px;
+    margin: 5px;
+  }
+}
+.for_footer1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 97%;
+  height: 40px;
+  padding: 6px 15px;
+  background-color: #0a0a0a1f;
+  border-radius: 3px;
+  .left_for_footer {
+    display: flex;
+    align-items: center;
+  }
+  .right_for_footer {
+    display: flex;
+    align-items: center;
+  }
+}
+.for_footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 74%;
+  .left_for_footer {
+    display: flex;
+    align-items: center;
+  }
+  .right_for_footer {
+    display: flex;
+    align-items: center;
+  }
+}
+
+
+.w_100 {
+  width: 100%;
+}
+.w_70 {
+  width: 66%;
+  margin-right: 12px;
+}
+.flex_space {
+  flex: 1 1 auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ededed;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.mr_10 {
+  margin-right: 15px;
+}
+.w_100 {
+  width: 100%;
+}
+.main_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    .main_image {
+      width: 400px;
+      height: 400px;
+      display: block;
+      opacity: 0.1;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.mr_20 {
+  margin-right: 20px;
+}
+
+.for_svg {
+  width: 30px;
+  height: 25px;
+}
+
+.send_image {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 75%;
+  margin-bottom: 10px;
+  padding: 0px 43px;
+  .single_image {
+    width: 70px;
+    height: 70px;
+    display: block;
+    position: relative;
+    margin: 5px;
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    &:hover .img_layout {
+      display: flex;
+    }
+    .img_layout {
+      cursor: pointer;
+      background-color: #00000061;
+      width: 100%;
+      height: 100%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      .delete_icon {
+        //color: #fff;
+        //font-size: 30px;
+        //border: 2px solid;
+        //border-radius: 50%;
+
+        position: absolute;
+        top: -9px;
+        right: -9px;
+        font-size: 14px;
+        color: #fff;
+        font-weight: 900;
+        background-color: #000;
+        padding: 2px;
+        border-radius: 50%;
+        border: 2px solid;
+      }
+    }
+  }
+}
+.section2 {
+  display: flex;
+  flex-direction: row;
+  max-width: 800px;
+  min-width: 180px;
+}
+.section1 {
+  display: flex;
+  flex-direction: column;
+  .for_text {
+    color: #b2b1b4;
+    display: flex;
+    align-items: center;
+    padding: 2px 0 !important;
+    .for_svg_section1 {
+      width: 30px;
+      height: 23px;
+    }
+  }
+}
+
+.reply_massage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  .reply_massage_inner {
+    background-color: #0000001f !important;
+    display: flex;
+    align-items: flex-start;
+    width: 87%;
+    flex-direction: column;
+    .user_name {
+      padding: 0 !important;
+      background-color: unset !important;
+      color: #35cd96!important;
+      font-weight: 600;
+    }
+  }
+}
+
+.new_massage {
+  display: flex;
+  align-items: center;
+  max-width: 660px;
+  margin-right: 25px;
+  flex-wrap: wrap;
+}
+.new_massage_emoji {
+  font-size: 25px;
+  padding: 10px;
+  display: flex;
+  max-width: 660px;
+  flex-wrap: wrap;
+  margin-right: 25px;
+}
+
+.flex_space {
+  flex: 1 1 auto;
+}
+.emoji_but {
+  border: unset;
+  outline: unset;
+  .icon_emoji {
+    font-size: 28px;
+  }
+
+}
+.attachment_file {
+  cursor: pointer;
+  transform: rotate(30deg);
+  margin-top: -5px;
+}
+
+.activeAshish {
+  background-color: #efefef;
+}
+
+
